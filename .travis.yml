@@ -4,3 +4,5 @@ go:
   - 1.5
 
 go_import_path: github.com/bobesa/go-domain-util/domainutil
+
+script: go test -v ./... -coverprofile=coverage.out
