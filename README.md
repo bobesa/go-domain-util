@@ -1,4 +1,5 @@
 # go-domain-tools
+[![Build Status](https://travis-ci.org/bobesa/go-domain-util.svg?branch=master)](https://travis-ci.org/bobesa/go-domain-util)
 
 GOlang package for checking if url contains subdomain, what that subdomain is, what is a top level domain in url etc.
 
