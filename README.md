@@ -4,7 +4,9 @@ GOlang package for checking if url contains subdomain, what that subdomain is, w
 
 # Installation
 
-`go get github.com/bobesa/go-domain-util/domainutil`
+```bash
+go get github.com/bobesa/go-domain-util/domainutil
+```
 
 # Example code
 
