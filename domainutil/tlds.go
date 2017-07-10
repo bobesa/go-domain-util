@@ -3,7 +3,7 @@ package domainutil
 // tld contains single tld info
 type tld map[string]*tld
 
-//tlds holds all informations about correct tlds
+// tlds holds all informations about correct tlds
 var tlds = &tld{
 	"aaa":     nil,
 	"abb":     nil,
@@ -7277,10 +7277,10 @@ var tlds = &tld{
 		"gov": &tld{
 			"service": nil,
 		},
-		"ltd":    nil,
-		"me":     nil,
-		"net":    nil,
-		"nhs":    nil,
+		"ltd": nil,
+		"me":  nil,
+		"net": nil,
+		// "nhs":    nil,
 		"org":    nil,
 		"plc":    nil,
 		"police": nil,
@@ -7727,7 +7727,8 @@ var tlds = &tld{
 	"yt":        nil,
 	"yun":       nil,
 	"za": &tld{
-		"*": nil,
+		"*":  nil,
+		"co": nil,
 	},
 	"zara": nil,
 	"zero": nil,
