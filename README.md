@@ -16,8 +16,7 @@ go get github.com/bobesa/go-domain-util/domainutil
 go build -o $GOPATH/bin/domainparser github.com/bobesa/go-domain-util/cmd/domainparser
 
 # Go to domainutil pkg & generate tlds
-cd $GOPATH/github.com/bobesa/go-domain-util/domainutil
-go generate
+go generate github.com/bobesa/go-domain-util/domainutil
 ```
 
 # Example code
