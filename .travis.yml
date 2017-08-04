@@ -1,8 +1,13 @@
 language: go
 
 go:
-  - 1.5
+  - 1.8
 
 go_import_path: github.com/bobesa/go-domain-util/domainutil
+
+install:
+  - go build -o $GOPATH/bin/domainparser github.com/bobesa/go-domain-util/cmd/domainparser
+  - cd $GOPATH/github.com/bobesa/go-domain-util/domainutil
+  - go generate
 
 script: go test -v ./... -coverprofile=coverage.out
