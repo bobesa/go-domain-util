@@ -9,6 +9,17 @@ GOlang package for checking if url contains subdomain, what that subdomain is, w
 go get github.com/bobesa/go-domain-util/domainutil
 ```
 
+# Rebuild the TLD database from publicsuffix.org
+
+```
+# (Re)build Parser
+go build -o $GOPATH/bin/domainparser github.com/bobesa/go-domain-util/cmd/domainparser
+
+# Go to domainutil pkg & generate tlds
+cd $GOPATH/github.com/bobesa/go-domain-util/domainutil
+go generate
+```
+
 # Example code
 
 ```go
