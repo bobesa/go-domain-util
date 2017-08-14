@@ -68,7 +68,7 @@ func main() {
 	// Parse text as separate lines
 	lines := strings.Split(string(b), "\n")
 	for _, line := range lines {
-		if len(line) > 3 && line[:3] != "// " {
+		if line != "" && (len(line) < 2 || line[:2] != "//") {
 			currentTLD := tlds
 			parts := strings.Split(line, ".")
 			for p := len(parts) - 1; p >= 0; p-- {
