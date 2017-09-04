@@ -1,6 +1,9 @@
 package domainutil
 
-import "strings"
+import (
+	"strings"
+	"golang.org/x/net/idna"
+)
 
 // HasSubdomain reports whether domain contains any subdomain.
 func HasSubdomain(domain string) bool {
@@ -85,6 +88,15 @@ func stripURLParts(url string) string {
 		url = url[:index]
 	} else if index := strings.Index(url, "?"); index > -1 { //Strip query if path is not found
 		url = url[:index]
+	}
+	
+	//Convert domain to unicode
+	if strings.Index(url, "xn--") != -1 {
+		var err error
+		url, err = idna.ToUnicode(url)
+		if err != nil {
+			return ""
+		}
 	}
 
 	//Return domain
