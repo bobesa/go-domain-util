@@ -179,6 +179,8 @@ func TestStripURLParts(t *testing.T) {
 		"gama.google.co.uk":              "gama.google.co.uk",
 		"beta.gama.google.co.uk":         "beta.gama.google.co.uk",
 		"https://beta.gama.google.co.uk": "beta.gama.google.co.uk",
+		"xn--n3h.example":                "☃.example",
+		"xn--äää":                        "",
 	}
 
 	//Test each domain, some should fail (expected)
