@@ -23,6 +23,16 @@ func Subdomain(url string) string {
 	return ""
 }
 
+// DomainPrefix returns second-level domain from provided url.
+// If no SLD is found in provided url, this function returns empty string.
+func DomainPrefix(url string) string {
+	domain := Domain(url)
+	if len(domain) != 0 {
+		return domain[:strings.Index(domain, ".")]
+	}
+	return ""
+}
+
 // DomainSuffix returns domain suffix from provided url.
 // If no TLD is found in provided url, this function returns empty string.
 func DomainSuffix(url string) string {
