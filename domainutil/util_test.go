@@ -168,19 +168,22 @@ func BenchmarkDomain(b *testing.B) {
 func TestStripURLParts(t *testing.T) {
 	//Test cases
 	cases := map[string]string{
-		"http://google.com":              "google.com",
-		"http://google.com/ding?true":    "google.com",
-		"google.com/?ding=false":         "google.com",
-		"google.com?ding=false":          "google.com",
-		"nonexist.***":                   "nonexist.***",
-		"google.com":                     "google.com",
-		"google.co.uk":                   "google.co.uk",
-		"gama.google.com":                "gama.google.com",
-		"gama.google.co.uk":              "gama.google.co.uk",
-		"beta.gama.google.co.uk":         "beta.gama.google.co.uk",
-		"https://beta.gama.google.co.uk": "beta.gama.google.co.uk",
-		"xn--n3h.example":                "☃.example",
-		"xn--äää":                        "",
+		"http://google.com":                                    "google.com",
+		"http://google.com/ding?true":                          "google.com",
+		"google.com/?ding=false":                               "google.com",
+		"google.com?ding=false":                                "google.com",
+		"nonexist.***":                                         "nonexist.***",
+		"google.com":                                           "google.com",
+		"google.co.uk":                                         "google.co.uk",
+		"gama.google.com":                                      "gama.google.com",
+		"gama.google.co.uk":                                    "gama.google.co.uk",
+		"beta.gama.google.co.uk":                               "beta.gama.google.co.uk",
+		"https://beta.gama.google.co.uk":                       "beta.gama.google.co.uk",
+		"xn--n3h.example":                                      "☃.example",
+		"xn--äää":                                              "",
+		"http://admin:adminpw@google.com":                      "google.com",
+		"admin:adminpw@gama.google.com":                        "gama.google.com",
+		"https://admin:adminpw@gama.google.com/path?key=value": "gama.google.com",
 	}
 
 	//Test each domain, some should fail (expected)

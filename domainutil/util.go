@@ -2,6 +2,7 @@ package domainutil
 
 import (
 	"strings"
+
 	"golang.org/x/net/idna"
 )
 
@@ -83,13 +84,19 @@ func stripURLParts(url string) string {
 		url = url[index+3:]
 	}
 
+	// Now, if the url looks like this: username:password@www.example.com/path?query=?
+	// we remove the content before the '@' symbol
+	if index := strings.Index(url, "@"); index > -1 {
+		url = url[index+1:]
+	}
+
 	//Strip path (and query with it)
 	if index := strings.Index(url, "/"); index > -1 {
 		url = url[:index]
 	} else if index := strings.Index(url, "?"); index > -1 { //Strip query if path is not found
 		url = url[:index]
 	}
-	
+
 	//Convert domain to unicode
 	if strings.Index(url, "xn--") != -1 {
 		var err error
