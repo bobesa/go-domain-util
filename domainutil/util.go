@@ -52,18 +52,18 @@ func Domain(url string) string {
 	currentTld := *tlds
 	foundTld := false
 
-	//Cycle trough parts in reverse
+	// Cycle trough parts in reverse
 	if len(parts) > 1 {
 		for i := len(parts) - 1; i >= 0; i-- {
-			//Generate top domain output
+			// Generate top domain output
 			if top != "" {
 				top = "." + top
 			}
 			top = parts[i] + top
 
-			//Check for TLD
+			// Check for TLD
 			if currentTld == nil {
-				return top //Return current output because we no longer have the TLD
+				return top // Return current output because we no longer have the TLD
 			} else if tldEntry, found := currentTld[parts[i]]; found {
 				if tldEntry != nil {
 					currentTld = *tldEntry
@@ -73,10 +73,10 @@ func Domain(url string) string {
 				foundTld = true
 				continue
 			} else if foundTld {
-				return top //Return current output if tld was found before
+				return top // Return current output if tld was found before
 			}
 
-			//Return empty string if no tld was found ever
+			// Return empty string if no tld was found ever
 			return ""
 		}
 	}
@@ -86,10 +86,10 @@ func Domain(url string) string {
 
 // stripURLParts removes path, protocol & query from url and returns it.
 func stripURLParts(url string) string {
-	//Lower case the url
+	// Lower case the url
 	url = strings.ToLower(url)
 
-	//Strip protocol
+	// Strip protocol
 	if index := strings.Index(url, "://"); index > -1 {
 		url = url[index+3:]
 	}
@@ -100,14 +100,14 @@ func stripURLParts(url string) string {
 		url = url[index+1:]
 	}
 
-	//Strip path (and query with it)
+	// Strip path (and query with it)
 	if index := strings.Index(url, "/"); index > -1 {
 		url = url[:index]
-	} else if index := strings.Index(url, "?"); index > -1 { //Strip query if path is not found
+	} else if index := strings.Index(url, "?"); index > -1 { // Strip query if path is not found
 		url = url[:index]
 	}
 
-	//Convert domain to unicode
+	// Convert domain to unicode
 	if strings.Index(url, "xn--") != -1 {
 		var err error
 		url, err = idna.ToUnicode(url)
@@ -116,7 +116,7 @@ func stripURLParts(url string) string {
 		}
 	}
 
-	//Return domain
+	// Return domain
 	return url
 }
 
