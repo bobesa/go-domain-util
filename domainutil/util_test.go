@@ -230,3 +230,111 @@ func BenchmarkStripURLParts(b *testing.B) {
 		stripURLParts("https://beta.gama.google.co.uk?test=true")
 	}
 }
+
+func ExampleProtocol() {
+	fmt.Printf("%q\n", Protocol("google.com"))
+	fmt.Printf("%q\n", Protocol("ftp://google.com"))
+	fmt.Printf("%q\n", Protocol("http://google.com"))
+	fmt.Printf("%q\n", Protocol("https://google.com"))
+	fmt.Printf("%q\n", Protocol("https://user@google.com"))
+	fmt.Printf("%q\n", Protocol("https://user:pass@google.com"))
+	// Output: ""
+	// "ftp"
+	// "http"
+	// "https"
+	// "https"
+	// "https"
+}
+
+// TestProtocol tests Protocol() function
+func TestProtocol(t *testing.T) {
+	for _, testCase := range []struct{ URL, Expected string }{
+		{"google.com", ""},
+		{"ftp://google.com", "ftp"},
+		{"http://google.com", "http"},
+		{"https://google.com", "https"},
+		{"https://user@google.com", "https"},
+		{"https://user:pass@google.com", "https"},
+	} {
+		if result := Protocol(testCase.URL); result != testCase.Expected {
+			t.Errorf(`Url (%q) returned %q for Protocol(), but %q was expected`, testCase.URL, result, testCase.Expected)
+		}
+	}
+}
+
+// BenchmarkProtocol benchmarks Protocol() function
+func BenchmarkProtocol(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		Protocol("https://user:pass@beta.gama.google.co.uk?test=true")
+	}
+}
+
+func ExampleUsername() {
+	fmt.Printf("%q\n", Username("user:pass@google.com"))
+	fmt.Printf("%q\n", Username("https://user:pass@google.com"))
+	fmt.Printf("%q\n", Username("https://user@google.com"))
+	fmt.Printf("%q\n", Username("https://google.com"))
+	fmt.Printf("%q\n", Username("google.com"))
+	// Output: "user"
+	// "user"
+	// "user"
+	// ""
+	// ""
+}
+
+// TestUsername tests Username() function
+func TestUsername(t *testing.T) {
+	for _, testCase := range []struct{ URL, Expected string }{
+		{"user:pass@google.com", "user"},
+		{"https://user:pass@google.com", "user"},
+		{"https://user@google.com", "user"},
+		{"https://google.com", ""},
+		{"google.com", ""},
+	} {
+		if result := Username(testCase.URL); result != testCase.Expected {
+			t.Errorf(`Url (%q) returned %q for Username(), but %q was expected`, testCase.URL, result, testCase.Expected)
+		}
+	}
+}
+
+// BenchmarkUsername benchmarks Username() function
+func BenchmarkUsername(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		Username("https://user:pass@beta.gama.google.co.uk?test=true")
+	}
+}
+
+func ExamplePassword() {
+	fmt.Printf("%q\n", Password("user:pass@google.com"))
+	fmt.Printf("%q\n", Password("https://user:pass@google.com"))
+	fmt.Printf("%q\n", Password("https://user@google.com"))
+	fmt.Printf("%q\n", Password("https://google.com"))
+	fmt.Printf("%q\n", Password("google.com"))
+	// Output: "pass"
+	// "pass"
+	// ""
+	// ""
+	// ""
+}
+
+// TestPassword tests Password() function
+func TestPassword(t *testing.T) {
+	for _, testCase := range []struct{ URL, Expected string }{
+		{"user:pass@google.com", "pass"},
+		{"https://user:pass@google.com", "pass"},
+		{"https://user@google.com", ""},
+		{"https://google.com", ""},
+		{"google.com", ""},
+	} {
+		if result := Password(testCase.URL); result != testCase.Expected {
+			t.Errorf(`Url (%q) returned %q for Password(), but %q was expected`, testCase.URL, result, testCase.Expected)
+		}
+	}
+}
+
+// BenchmarkPassword benchmarks Password() function
+func BenchmarkPassword(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		Password("https://user:pass@beta.gama.google.co.uk?test=true")
+	}
+}
