@@ -232,12 +232,12 @@ func BenchmarkStripURLParts(b *testing.B) {
 }
 
 func ExampleProtocol() {
-	fmt.Printf(`%q`, Protocol("google.com"))
-	fmt.Printf(`%q`, Protocol("ftp://google.com"))
-	fmt.Printf(`%q`, Protocol("http://google.com"))
-	fmt.Printf(`%q`, Protocol("https://google.com"))
-	fmt.Printf(`%q`, Protocol("https://user@google.com"))
-	fmt.Printf(`%q`, Protocol("https://user:pass@google.com"))
+	fmt.Printf("%q\n", Protocol("google.com"))
+	fmt.Printf("%q\n", Protocol("ftp://google.com"))
+	fmt.Printf("%q\n", Protocol("http://google.com"))
+	fmt.Printf("%q\n", Protocol("https://google.com"))
+	fmt.Printf("%q\n", Protocol("https://user@google.com"))
+	fmt.Printf("%q\n", Protocol("https://user:pass@google.com"))
 	// Output: ""
 	// "ftp"
 	// "http"
@@ -270,11 +270,11 @@ func BenchmarkProtocol(b *testing.B) {
 }
 
 func ExampleUsername() {
-	fmt.Printf(`%q`, Username("user:pass@google.com"))
-	fmt.Printf(`%q`, Username("https://user:pass@google.com"))
-	fmt.Printf(`%q`, Username("https://user@google.com"))
-	fmt.Printf(`%q`, Username("https://google.com"))
-	fmt.Printf(`%q`, Username("google.com"))
+	fmt.Printf("%q\n", Username("user:pass@google.com"))
+	fmt.Printf("%q\n", Username("https://user:pass@google.com"))
+	fmt.Printf("%q\n", Username("https://user@google.com"))
+	fmt.Printf("%q\n", Username("https://google.com"))
+	fmt.Printf("%q\n", Username("google.com"))
 	// Output: "user"
 	// "user"
 	// "user"
@@ -305,11 +305,11 @@ func BenchmarkUsername(b *testing.B) {
 }
 
 func ExamplePassword() {
-	fmt.Printf(`%q`, Password("user:pass@google.com"))
-	fmt.Printf(`%q`, Password("https://user:pass@google.com"))
-	fmt.Printf(`%q`, Password("https://user@google.com"))
-	fmt.Printf(`%q`, Password("https://google.com"))
-	fmt.Printf(`%q`, Password("google.com"))
+	fmt.Printf("%q\n", Password("user:pass@google.com"))
+	fmt.Printf("%q\n", Password("https://user:pass@google.com"))
+	fmt.Printf("%q\n", Password("https://user@google.com"))
+	fmt.Printf("%q\n", Password("https://google.com"))
+	fmt.Printf("%q\n", Password("google.com"))
 	// Output: "pass"
 	// "pass"
 	// ""
