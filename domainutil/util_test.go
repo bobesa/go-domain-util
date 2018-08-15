@@ -89,6 +89,35 @@ func ExampleDomainSuffix() {
 	// com
 }
 
+// TestDomainPrefix tests DomainPrefix function
+func TestDomainPrefix(t *testing.T) {
+	//Test cases
+	cases := map[string]string{
+		"http://google.com":           "google",
+		"http://google.com/ding?true": "google",
+		"google.com/?ding=false":      "google",
+		"google.com?ding=false":       "google",
+		"google.com":                  "google",
+		"google.co.uk":                "google",
+		"gama.google.com":             "google",
+		"gama.google.co.uk":           "google",
+		"beta.gama.google.co.uk":      "google",
+	}
+
+	for url, expectedPrefix := range cases {
+		domainPrefix := DomainPrefix(url)
+		if domainPrefix != expectedPrefix {
+			t.Errorf("Url (%q) returned %q for DomainPrefix(), but %q was expected", url, domainPrefix, expectedPrefix)
+		}
+	}
+}
+
+func BenchmarkDomainPrefix(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		DomainPrefix("https://beta.gama.google.co.uk?test=true")
+	}
+}
+
 // TestDomainSuffix tests DomainSuffix() function
 func TestDomainSuffix(t *testing.T) {
 	//Test cases
@@ -168,19 +197,22 @@ func BenchmarkDomain(b *testing.B) {
 func TestStripURLParts(t *testing.T) {
 	//Test cases
 	cases := map[string]string{
-		"http://google.com":              "google.com",
-		"http://google.com/ding?true":    "google.com",
-		"google.com/?ding=false":         "google.com",
-		"google.com?ding=false":          "google.com",
-		"nonexist.***":                   "nonexist.***",
-		"google.com":                     "google.com",
-		"google.co.uk":                   "google.co.uk",
-		"gama.google.com":                "gama.google.com",
-		"gama.google.co.uk":              "gama.google.co.uk",
-		"beta.gama.google.co.uk":         "beta.gama.google.co.uk",
-		"https://beta.gama.google.co.uk": "beta.gama.google.co.uk",
-		"xn--n3h.example":                "☃.example",
-		"xn--äää":                        "",
+		"http://google.com":                                    "google.com",
+		"http://google.com/ding?true":                          "google.com",
+		"google.com/?ding=false":                               "google.com",
+		"google.com?ding=false":                                "google.com",
+		"nonexist.***":                                         "nonexist.***",
+		"google.com":                                           "google.com",
+		"google.co.uk":                                         "google.co.uk",
+		"gama.google.com":                                      "gama.google.com",
+		"gama.google.co.uk":                                    "gama.google.co.uk",
+		"beta.gama.google.co.uk":                               "beta.gama.google.co.uk",
+		"https://beta.gama.google.co.uk":                       "beta.gama.google.co.uk",
+		"xn--n3h.example":                                      "☃.example",
+		"xn--äää":                                              "",
+		"http://admin:adminpw@google.com":                      "google.com",
+		"admin:adminpw@gama.google.com":                        "gama.google.com",
+		"https://admin:adminpw@gama.google.com/path?key=value": "gama.google.com",
 	}
 
 	//Test each domain, some should fail (expected)
