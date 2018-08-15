@@ -230,3 +230,41 @@ func BenchmarkStripURLParts(b *testing.B) {
 		stripURLParts("https://beta.gama.google.co.uk?test=true")
 	}
 }
+
+func ExampleProtocol() {
+	fmt.Printf(`%q`, Protocol("google.com"))
+	fmt.Printf(`%q`, Protocol("ftp://google.com"))
+	fmt.Printf(`%q`, Protocol("http://google.com"))
+	fmt.Printf(`%q`, Protocol("https://google.com"))
+	fmt.Printf(`%q`, Protocol("https://user@google.com"))
+	fmt.Printf(`%q`, Protocol("https://user:pass@google.com"))
+	// Output: ""
+	// "ftp"
+	// "http"
+	// "https"
+	// "https"
+	// "https"
+}
+
+// TestProtocol tests Protocol() function
+func TestProtocol(t *testing.T) {
+	for _, testCase := range []struct{ URL, Expected string }{
+		{"google.com", ""},
+		{"ftp://google.com", "ftp"},
+		{"http://google.com", "http"},
+		{"https://google.com", "https"},
+		{"https://user@google.com", "https"},
+		{"https://user:pass@google.com", "https"},
+	} {
+		if result := Protocol(testCase.URL); result != testCase.Expected {
+			t.Errorf(`Url (%q) returned %q for Protocol(), but %q was expected`, testCase.URL, result, testCase.Expected)
+		}
+	}
+}
+
+// BenchmarkProtocol benchmarks Protocol() function
+func BenchmarkProtocol(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		Protocol("https://user:pass@beta.gama.google.co.uk?test=true")
+	}
+}

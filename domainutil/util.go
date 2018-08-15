@@ -119,3 +119,13 @@ func stripURLParts(url string) string {
 	//Return domain
 	return url
 }
+
+// Protocol returns protocol from given url
+//
+// If protocol is not present - return empty string
+func Protocol(url string) string {
+	if index := strings.Index(url, "://"); index > -1 {
+		return url[:index]
+	}
+	return ""
+}

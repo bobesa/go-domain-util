@@ -60,3 +60,9 @@ HasSubdomain reports whether domain contains any subdomain.
 func Subdomain(url string) string
 ```
 Subdomain returns subdomain from provided url. If subdomain is not found in provided url, this function returns empty string.
+
+## Get protocol from url
+```go
+func Protocol(url string) string
+```
+Protocol returns protocol from provided url. If protocol is not found in provided url, this function returns empty string.
