@@ -129,3 +129,37 @@ func Protocol(url string) string {
 	}
 	return ""
 }
+
+// credentials returns credentials (user:pass) from given url
+func credentials(url string) string {
+	index := strings.IndexRune(url, '@')
+	if index == -1 {
+		return ""
+	}
+	if protocol := Protocol(url); protocol != "" {
+		return url[len(protocol)+3 : index]
+	}
+	return url[:index]
+}
+
+// Username returns username from given url
+//
+// If username is not present - return empty string
+func Username(url string) string {
+	auth := strings.SplitN(credentials(url), ":", 2)
+	if len(auth) == 0 {
+		return ""
+	}
+	return auth[0]
+}
+
+// Password returns password from given url
+//
+// If password is not present - return empty string
+func Password(url string) string {
+	auth := strings.SplitN(credentials(url), ":", 2)
+	if len(auth) < 2 {
+		return ""
+	}
+	return auth[1]
+}

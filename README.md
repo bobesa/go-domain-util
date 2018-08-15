@@ -66,3 +66,15 @@ Subdomain returns subdomain from provided url. If subdomain is not found in prov
 func Protocol(url string) string
 ```
 Protocol returns protocol from provided url. If protocol is not found in provided url, this function returns empty string.
+
+## Get username from credentials of url
+```go
+func Username(url string) string
+```
+Username returns username from provided url. If username is not found in provided url, this function returns empty string.
+
+## Get password from credentials of url
+```go
+func Password(url string) string
+```
+Password returns password from provided url. If password is not found in provided url, this function returns empty string.

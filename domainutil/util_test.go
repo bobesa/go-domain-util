@@ -268,3 +268,73 @@ func BenchmarkProtocol(b *testing.B) {
 		Protocol("https://user:pass@beta.gama.google.co.uk?test=true")
 	}
 }
+
+func ExampleUsername() {
+	fmt.Printf(`%q`, Username("user:pass@google.com"))
+	fmt.Printf(`%q`, Username("https://user:pass@google.com"))
+	fmt.Printf(`%q`, Username("https://user@google.com"))
+	fmt.Printf(`%q`, Username("https://google.com"))
+	fmt.Printf(`%q`, Username("google.com"))
+	// Output: "user"
+	// "user"
+	// "user"
+	// ""
+	// ""
+}
+
+// TestUsername tests Username() function
+func TestUsername(t *testing.T) {
+	for _, testCase := range []struct{ URL, Expected string }{
+		{"user:pass@google.com", "user"},
+		{"https://user:pass@google.com", "user"},
+		{"https://user@google.com", "user"},
+		{"https://google.com", ""},
+		{"google.com", ""},
+	} {
+		if result := Username(testCase.URL); result != testCase.Expected {
+			t.Errorf(`Url (%q) returned %q for Username(), but %q was expected`, testCase.URL, result, testCase.Expected)
+		}
+	}
+}
+
+// BenchmarkUsername benchmarks Username() function
+func BenchmarkUsername(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		Username("https://user:pass@beta.gama.google.co.uk?test=true")
+	}
+}
+
+func ExamplePassword() {
+	fmt.Printf(`%q`, Password("user:pass@google.com"))
+	fmt.Printf(`%q`, Password("https://user:pass@google.com"))
+	fmt.Printf(`%q`, Password("https://user@google.com"))
+	fmt.Printf(`%q`, Password("https://google.com"))
+	fmt.Printf(`%q`, Password("google.com"))
+	// Output: "pass"
+	// "pass"
+	// ""
+	// ""
+	// ""
+}
+
+// TestPassword tests Password() function
+func TestPassword(t *testing.T) {
+	for _, testCase := range []struct{ URL, Expected string }{
+		{"user:pass@google.com", "pass"},
+		{"https://user:pass@google.com", "pass"},
+		{"https://user@google.com", ""},
+		{"https://google.com", ""},
+		{"google.com", ""},
+	} {
+		if result := Password(testCase.URL); result != testCase.Expected {
+			t.Errorf(`Url (%q) returned %q for Password(), but %q was expected`, testCase.URL, result, testCase.Expected)
+		}
+	}
+}
+
+// BenchmarkPassword benchmarks Password() function
+func BenchmarkPassword(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		Password("https://user:pass@beta.gama.google.co.uk?test=true")
+	}
+}
