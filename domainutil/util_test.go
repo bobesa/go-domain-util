@@ -21,6 +21,7 @@ func TestSplitDomain(t *testing.T) {
 		"wikipedia.org":                                    {"wikipedia", "org"},
 		".org":                                             {"org"},
 		"org":                                              nil,
+		"a.b.c.d.wikipedia.org": {"a", "b", "c", "d", "wikipedia", "org"},
 	}
 
 	for url, array := range cases {
