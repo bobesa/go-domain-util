@@ -24,10 +24,8 @@ jobs:
             dep ensure
         fi
 
-    - name: Build Domain Parser
-      run: |
-        go build -o $GOPATH/bin/domainparser github.com/bobesa/go-domain-util/cmd/domainparser
-        go generate github.com/bobesa/go-domain-util/domainutil
+    - name: Generate
+      run: go generate github.com/bobesa/go-domain-util/domainutil
       
-    - name: Build Domain Parser
+    - name: Test
       run: go test -v ./domainutil
