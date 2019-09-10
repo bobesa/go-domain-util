@@ -2,7 +2,7 @@ name: Go
 on: [push]
 jobs:
 
-  build:
+  test:
     name: Generate & Test
     runs-on: ubuntu-latest
     steps:
