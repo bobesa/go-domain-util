@@ -23,6 +23,27 @@ func Subdomain(url string) string {
 	return ""
 }
 
+// SplitDomain split domain into string array
+// for example, zh.wikipedia.org will split into {"zh", "wikipedia", "org"}
+func SplitDomain(url string) []string {
+	domain, second, top := Subdomain(url), DomainPrefix(url), DomainSuffix(url)
+	if len(top) == 0 {
+		return nil
+	}
+
+	if len(second) == 0 {
+		return []string{top}
+	}
+
+	if len(domain) == 0 {
+		return []string{second, top}
+	}
+
+	array := strings.Split(domain, ".")
+	res := append(array, second, top)
+	return res
+}
+
 // DomainPrefix returns second-level domain from provided url.
 // If no SLD is found in provided url, this function returns empty string.
 func DomainPrefix(url string) string {

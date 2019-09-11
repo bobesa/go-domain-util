@@ -2,6 +2,7 @@ package domainutil
 
 import (
 	"fmt"
+	"reflect"
 	"testing"
 )
 
@@ -10,6 +11,25 @@ func ExampleHasSubdomain() {
 	fmt.Println(HasSubdomain("keep.google.com"))
 	// Output: false
 	// true
+}
+
+func TestSplitDomain(t *testing.T) {
+	cases := map[string][]string{
+		"http://zh.wikipedia.org":                          {"zh", "wikipedia", "org"},
+		"zh.wikipedia.org":                                 {"zh", "wikipedia", "org"},
+		"https://zh.wikipedia.org/wiki/%E5%9F%9F%E5%90%8D": {"zh", "wikipedia", "org"},
+		"wikipedia.org":                                    {"wikipedia", "org"},
+		".org":                                             {"org"},
+		"org":                                              nil,
+		"a.b.c.d.wikipedia.org": {"a", "b", "c", "d", "wikipedia", "org"},
+	}
+
+	for url, array := range cases {
+		arrVal := SplitDomain(url)
+		if !reflect.DeepEqual(array, arrVal) {
+			t.Errorf("Url (%q) return %v for SplitDomain, bug %v was expected", url, arrVal, array)
+		}
+	}
 }
 
 // TestHasSubdomain tests HasSubdomain() function
