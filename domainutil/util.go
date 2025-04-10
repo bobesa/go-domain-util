@@ -6,6 +6,16 @@ import (
 	"golang.org/x/net/idna"
 )
 
+// HasSubdomainQuantity checks the amount of subdomains in domain.
+// If quantity matches the number of subdomains in domain, this function returns true.
+func HasSubdomainQuantity(domain string, quantity int) bool {
+	domainSplit := SplitDomain(domain)
+	if len(domainSplit) - 2 == quantity {
+		return true
+	}
+	return false
+}
+
 // HasSubdomain reports whether domain contains any subdomain.
 func HasSubdomain(domain string) bool {
 	domain, top := stripURLParts(domain), Domain(domain)
