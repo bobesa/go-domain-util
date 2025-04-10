@@ -6,6 +6,16 @@ import (
 	"golang.org/x/net/idna"
 )
 
+// HasSubdomainQuantity checks the amount of subdomains in domain.
+// If quantity matches the number of subdomains in domain, this function returns true.
+func HasSubdomainQuantity(domain string, quantity int) bool {
+	domainSplit := SplitDomain(domain)
+	if len(domainSplit) - 2 == quantity {
+		return true
+	}
+	return false
+}
+
 // HasSubdomain reports whether domain contains any subdomain.
 func HasSubdomain(domain string) bool {
 	domain, top := stripURLParts(domain), Domain(domain)
@@ -117,17 +127,17 @@ func stripURLParts(url string) string {
 		url = url[index+3:]
 	}
 
-	// Now, if the url looks like this: username:password@www.example.com/path?query=?
-	// we remove the content before the '@' symbol
-	if index := strings.Index(url, "@"); index > -1 {
-		url = url[index+1:]
-	}
-
 	// Strip path (and query with it)
 	if index := strings.Index(url, "/"); index > -1 {
 		url = url[:index]
 	} else if index := strings.Index(url, "?"); index > -1 { // Strip query if path is not found
 		url = url[:index]
+	}
+
+	// Now, if the url looks like this: username:password@www.example.com/path?query=?
+	// we remove the content before the '@' symbol
+	if index := strings.Index(url, "@"); index > -1 {
+		url = url[index+1:]
 	}
 
 	// Convert domain to unicode

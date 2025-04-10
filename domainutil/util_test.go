@@ -21,7 +21,7 @@ func TestSplitDomain(t *testing.T) {
 		"wikipedia.org":                                    {"wikipedia", "org"},
 		".org":                                             {"org"},
 		"org":                                              nil,
-		"a.b.c.d.wikipedia.org": {"a", "b", "c", "d", "wikipedia", "org"},
+		"a.b.c.d.wikipedia.org":                            {"a", "b", "c", "d", "wikipedia", "org"},
 	}
 
 	for url, array := range cases {
@@ -83,7 +83,7 @@ func TestSubdomain(t *testing.T) {
 		"gama.google.com":             "gama",
 		"gama.google.co.uk":           "gama",
 		"beta.gama.google.co.uk":      "beta.gama",
-		"": "",
+		"":                            "",
 	}
 
 	//Test each domain, some should fail (expected)
@@ -217,22 +217,23 @@ func BenchmarkDomain(b *testing.B) {
 func TestStripURLParts(t *testing.T) {
 	//Test cases
 	cases := map[string]string{
-		"http://google.com":                                    "google.com",
-		"http://google.com/ding?true":                          "google.com",
-		"google.com/?ding=false":                               "google.com",
-		"google.com?ding=false":                                "google.com",
-		"nonexist.***":                                         "nonexist.***",
-		"google.com":                                           "google.com",
-		"google.co.uk":                                         "google.co.uk",
-		"gama.google.com":                                      "gama.google.com",
-		"gama.google.co.uk":                                    "gama.google.co.uk",
-		"beta.gama.google.co.uk":                               "beta.gama.google.co.uk",
-		"https://beta.gama.google.co.uk":                       "beta.gama.google.co.uk",
-		"xn--n3h.example":                                      "☃.example",
-		"xn--äää":                                              "",
-		"http://admin:adminpw@google.com":                      "google.com",
-		"admin:adminpw@gama.google.com":                        "gama.google.com",
+		"http://google.com":               "google.com",
+		"http://google.com/ding?true":     "google.com",
+		"google.com/?ding=false":          "google.com",
+		"google.com?ding=false":           "google.com",
+		"nonexist.***":                    "nonexist.***",
+		"google.com":                      "google.com",
+		"google.co.uk":                    "google.co.uk",
+		"gama.google.com":                 "gama.google.com",
+		"gama.google.co.uk":               "gama.google.co.uk",
+		"beta.gama.google.co.uk":          "beta.gama.google.co.uk",
+		"https://beta.gama.google.co.uk":  "beta.gama.google.co.uk",
+		"xn--n3h.example":                 "☃.example",
+		"xn--äää":                         "",
+		"http://admin:adminpw@google.com": "google.com",
+		"admin:adminpw@gama.google.com":   "gama.google.com",
 		"https://admin:adminpw@gama.google.com/path?key=value": "gama.google.com",
+		"http://medium.com/@example/example":                   "medium.com",
 	}
 
 	//Test each domain, some should fail (expected)
