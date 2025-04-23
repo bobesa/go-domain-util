@@ -206,6 +206,25 @@ func TestDomain(t *testing.T) {
 	}
 }
 
+// TestDomainrailingDot tests that Domain() accepts trailing dots in host names
+func TestDomainTrailingDot(t *testing.T) {
+	//Test cases
+	cases := map[string]string{
+		"http://google.com":       "google.com",
+		"http://google.com.":      "google.com",
+		"http://google.com./":     "google.com",
+		"http://google.com./page": "google.com",
+	}
+
+	//Test each domain, some should fail (expected)
+	for url, expected := range cases {
+		domain := Domain(url)
+		if domain != expected {
+			t.Errorf("Url (%q) returned (%s) as domain, but expected (%s)", url, domain, expected)
+		}
+	}
+}
+
 // BenchmarkDomain benchmarks Domain() function
 func BenchmarkDomain(b *testing.B) {
 	for i := 0; i < b.N; i++ {

@@ -10,7 +10,7 @@ import (
 // If quantity matches the number of subdomains in domain, this function returns true.
 func HasSubdomainQuantity(domain string, quantity int) bool {
 	domainSplit := SplitDomain(domain)
-	if len(domainSplit) - 2 == quantity {
+	if len(domainSplit)-2 == quantity {
 		return true
 	}
 	return false
@@ -82,6 +82,11 @@ func Domain(url string) string {
 	parts := strings.Split(domain, ".")
 	currentTld := *tlds
 	foundTld := false
+
+	// Trailing periods are permitted
+	if parts[len(parts)-1] == "" {
+		parts = parts[:len(parts)-1]
+	}
 
 	// Cycle trough parts in reverse
 	if len(parts) > 1 {
